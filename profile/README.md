@@ -33,8 +33,6 @@ pkg> add QuantumControl
 
 This will also install all the packages of the [JuliaQuantumControl][] organization as dependencies.
 
-**Warning: Currently, the packages in [JuliaQuantumControl][] are undergoing active development, and are in a pre-alpha state. Released version of [`QuantumControl.jl`][QuantumControl] < 0.1 do not provide any functionality. Early adopters should use use the [development version](#development).**
-
 ## Development
 
 Development or pre-release use of [JuliaQuantumControl][] packages requires a [dev-installation](https://pkgdocs.julialang.org/v1/managing-packages/#developing) of *all* packages. To facilitate this, we provide a [development environment][JuliaQuantumControlDev] for the entire organization in the [`JuliaQuantumControl` repository][JuliaQuantumControlDev] . Cloning the repository provides a `Makefile` to develop across all packages. In order to use this `Makefile`, it is strongly recommended that you use Unix as a development platform (Linux, macOS, or [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) on Windows).
