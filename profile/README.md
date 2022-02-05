@@ -35,9 +35,9 @@ This will also install all the packages of the [JuliaQuantumControl][] organizat
 
 ## Development
 
-Development or pre-release use of [JuliaQuantumControl][] packages requires a [dev-installation](https://pkgdocs.julialang.org/v1/managing-packages/#developing) of *all* packages. To facilitate this, we provide a [development environment][JuliaQuantumControlDev] for the entire organization in the [`JuliaQuantumControl` repository][JuliaQuantumControlDev] . Cloning the repository provides a `Makefile` to develop across all packages. In order to use this `Makefile`, it is strongly recommended that you use Unix as a development platform (Linux, macOS, or [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) on Windows).
+Development or pre-release use of [JuliaQuantumControl][] packages requires a [dev-installation](https://pkgdocs.julialang.org/v1/managing-packages/#developing) of *all* packages. To facilitate this, we provide a [development environment][JuliaQuantumControlDev] for the entire organization in the [`JuliaQuantumControl` repository][JuliaQuantumControlDev] . Cloning that repository provides a `Makefile` to develop across all packages. In order to use this `Makefile`, it is strongly recommended that you use Unix as a development platform (Linux, macOS, or [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) on Windows).
 
-See [the repository's README](https://github.com/JuliaQuantumControl/JuliaQuantumControl#readme) for details.
+See [the dev-environment README](https://github.com/JuliaQuantumControl/JuliaQuantumControl#readme) for details.
 
 [JuliaQuantumControl]: https://github.com/JuliaQuantumControl
 [JuliaQuantumControlDev]: https://github.com/JuliaQuantumControl/JuliaQuantumControl
