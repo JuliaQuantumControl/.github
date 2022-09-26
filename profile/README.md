@@ -22,6 +22,8 @@ The packages in [JuliaQuantumControl][] that implement specific individual metho
 
 Read the [`QuantumControl.jl` documentation](https://juliaquantumcontrol.github.io/QuantumControl.jl/) for a comprehensive description of all the packages in the [JuliaQuantumControl][] organization.
 
+Support is also available in the `#quantumcontrol` channel in the [Julia Slack](https://julialang.org/slack/).
+
 
 ## Installation
 
