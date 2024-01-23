@@ -7,8 +7,8 @@ The [JuliaQuantumControl][] organization collects packages implementing a compre
 
 [Quantum optimal control theory](https://link.springer.com/article/10.1140%2Fepjd%2Fe2015-60464-1) attempts to steer a quantum system in some desired way by finding optimal control parameters or control fields inside the system Hamiltonian or Liouvillian. Typical control tasks are the preparation of a specific quantum state or the realization of a logical gate in a quantum computer. Thus, quantum control theory is a critical part of realizing quantum technologies, at the lowest level. Numerical methods of *open-loop* quantum control (methods that do not involve measurement feedback from a physical quantum device) such as [Krotov's method][Krotov] and [GRAPE][] address the control problem by [simulating the dynamics of the system][QuantumPropagators] and then iteratively improving the value of a functional that encodes the desired outcome.
 
+The packages in [JuliaQuantumControl][] that implement specific individual methods should be used via the high-level package [`QuantumControl.jl`][QuantumControl].
 
-The packages in [JuliaQuantumControl][] that implement specific individual methods are combined in the high-level package [`QuantumControl.jl`][QuantumControl]. For normal usage, i.e., outside of development within the [JuliaQuantumControl][] organization, it should be sufficient to interact only with the [`QuantumControl.jl`][QuantumControl] interface.
 
 ## Packages
 
@@ -39,7 +39,13 @@ The [`QuantumControl.jl`][QuantumControl] package can be installed via the [stan
 pkg> add QuantumControl
 ~~~
 
-This will also install all the packages of the [JuliaQuantumControl][] organization as dependencies.
+You may also want to install additional packages from the [JuliaQuantumControl][] organization as needed:
+
+~~~
+pkg> add QuantumPropagators
+pkg> add Krotov
+pkg> add GRAPE
+~~~
 
 ## Development
 
