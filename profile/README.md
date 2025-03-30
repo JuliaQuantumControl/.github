@@ -27,7 +27,7 @@ The packages in [JuliaQuantumControl][] that implement specific individual metho
 
 Read the [`QuantumControl.jl` documentation](https://juliaquantumcontrol.github.io/QuantumControl.jl/) for a comprehensive description of the framework.
 
-Support is also available in the `#quantumcontrol` channel in the [Julia Slack](https://julialang.org/slack/).
+Support is also available in the `#quantumcontrol` channel in the [Julia Slack](https://julialang.org/slack/) and in the [Discussions](https://github.com/orgs/JuliaQuantumControl/discussions) here on GitHub.
 
 
 ## Installation
@@ -48,7 +48,7 @@ pkg> add GRAPE
 
 ## Development
 
-Development or pre-release use of [JuliaQuantumControl][] packages requires a [dev-installation](https://pkgdocs.julialang.org/v1/managing-packages/#developing) of *all* packages. To facilitate this, we provide a [development environment][JuliaQuantumControlDev] for the entire organization in the [`JuliaQuantumControl` repository][JuliaQuantumControlDev] . Cloning that repository provides a `Makefile` to develop across all packages. In order to use this `Makefile`, it is strongly recommended that you use Unix as a development platform (Linux, macOS, or [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) on Windows).
+Development of [JuliaQuantumControl][] packages is best done in a [dev-installation](https://pkgdocs.julialang.org/v1/managing-packages/#developing) of *all* packages. To facilitate this, we provide a [development environment][JuliaQuantumControlDev] for the entire organization in the [`JuliaQuantumControl` repository][JuliaQuantumControlDev] . Cloning that repository provides a `Makefile` to develop across all packages. In order to use this `Makefile`, it is strongly recommended that you use Unix as a development platform (Linux, macOS, or [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) on Windows).
 
 See [the dev-environment README](https://github.com/JuliaQuantumControl/JuliaQuantumControl#readme) for details.
 
