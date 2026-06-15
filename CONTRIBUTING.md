@@ -75,13 +75,25 @@ Releases are made by the package maintainer only.
 - [ ] Create a `release-x.y.z` branch
 - [ ] Create a single "release commit":
     - [ ] Check the version number in `Project.toml`, bumping or removing a `-dev` suffix as necessary
+    - [ ] If any dependencies have an open compat bound (`>=`), cap it for the release commit by removing `>=`.
     - [ ] Ensure the `CHANGELOG.md` is complete and up-to-date
 - [ ] Push the `release-x.y.z` branch, but do not create a pull request
-- [ ] Comment `@JuliaRegistrator register` on the commit that should be tagged as the release
+- [ ] Comment `@JuliaRegistrator register` on the commit that should be tagged as the release. Include a `Release notes:` section in the comment, after the trigger line. For a breaking release (any pre-1.0 `v0.x.0` bump counts as breaking), the release notes must mention the word "breaking" or "changelog" (automerge requirement). Pointing to the `CHANGELOG.md` (which contains the word "changelog") satisfies this, e.g.:
+
+    ```
+    @JuliaRegistrator register
+
+    Release notes:
+
+    See the [changelog](https://github.com/JuliaQuantumControl/<Package>.jl/blob/vx.y.z/CHANGELOG.md).
+    ```
+
+    The release notes become the body of the GitHub release created by TagBot.
 - [ ] Wait for the registration to go through, for TagBot to tag the commit, and for the documentation to be built and deployed
 - [ ] Manually merge the `release-x.y.z` branch into `master`, with a merge commit that bumps the version number by applying a `+dev` suffix:
     - [ ] `git merge --no-ff --no-commit release-x.y.z`
     - [ ] Update `Project.toml`
+    - [ ] Revert any temporarily open compat bounds (restore any `>=` removed in step 2)
     - [ ] `git commit -m "Bump version to x.y.z+dev"`
 - [ ] Push the `master` branch and delete the `release-x.y.z` branch (`git branch -D release-x.y.z && git push origin :release-x.y.z`)
 
