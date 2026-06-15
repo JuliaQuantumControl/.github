@@ -23,16 +23,16 @@ Development of packages in the [JuliaQuantumControl] org is organized via pull r
 
 ## Source Code Formatting
 
-This project uses a code style described in [`.JuliaFormatter.toml`] and enforced via [JuliaFormatter]. For pull requests, adherence to the code style is automatically checked during continuous integration.
+This project uses a code style described in [`.JuliaFormatter.toml`] and enforced via [JuliaFormatter]. For pull requests, adherence to the code style is automatically checked during continuous integration. The formatting depends on the exact `JuliaFormatter` version, which is pinned in `test/Project.toml` (and in the CI configuration). Using a different `JuliaFormatter` version may produce formatting that the CI check rejects.
 
-To apply the code style locally, you should have `JuliaFormatter` installed in your global Julia environment. Download [`.JuliaFormatter.toml`] into the root of the project folder. Lastly, in a Julia REPL within the project folder, run `using JuliaFormatter; format(".")`.
+The recommended way to apply the code style is to run `make codestyle` (Unix with `make` installed); this uses the pinned `JuliaFormatter` version from the `test` environment and fetches the [`.JuliaFormatter.toml`] automatically. See `make help` for details.
 
-Alternatively, if you are on Unix and have `make` installed, run `make codestyle`. See `make help` for details.
+Alternatively, install the pinned `JuliaFormatter` version in a Julia environment, download [`.JuliaFormatter.toml`] into the root of the project folder, and in a Julia REPL within the project folder run `using JuliaFormatter; format(".")`.
 
 
 ## Running the Tests
 
-There are a few way to run the tests:
+There are a few ways to run the tests:
 
 * Start a Julia REPL with `julia --project=.`, then type `] test`.
 
@@ -51,7 +51,7 @@ Use one of the following two possibilities to build the documentation locally:
 
 * If you are on Unix and have `make` installed, run `make docs`. See `make help` for details.
 
-This will build the documentation in the `docs/build` subfolder of the project root. The preview it, you must run a web server, either via the [`LiveServer`](https://github.com/JuliaDocs/LiveServer.jl) package, or (if you have Python installed), via `python3 -m http.server`. See the [Documenter Guide](https://documenter.juliadocs.org/stable/man/guide/#Note-6b659cc6046c5199) for details.
+This will build the documentation in the `docs/build` subfolder of the project root. To preview it, you must run a web server, either via the [`LiveServer`](https://github.com/JuliaDocs/LiveServer.jl) package, or (if you have Python installed), via `python3 -m http.server`. See the [Documenter Guide](https://documenter.juliadocs.org/stable/man/guide/#Note-6b659cc6046c5199) for details.
 
 Run `make clean` or `make distclean` to remove the documentation build, see `make help` for details.
 
