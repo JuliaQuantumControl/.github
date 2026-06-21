@@ -72,29 +72,71 @@ See also the [README of the JuliaQuantumControl Dev Environment](https://github.
 
 Releases are made by the package maintainer only.
 
+- [ ] Choose the appropriate version number `x.y.z` for the release.
+
+  Post-1.0, breaking changes should be rare an require a major-version bump, following semantic versioning (semver).
+
+  Pre-1.0, breaking changes are a minor (`0.x.0`) release, and new features or bugfixes get grouped into the third number.
+
+  Review the `CHANGELOG.md`, merged PRs and closed issues, as well as the commit history since the last tagged release to determine the appropriate version number for the release.
+
 - [ ] Create a `release-x.y.z` branch
+
 - [ ] Create a single "release commit":
+
     - [ ] Check the version number in `Project.toml`, bumping or removing a `-dev` suffix as necessary
+
     - [ ] If any dependencies have an open compat bound (`>=`), cap it for the release commit by removing `>=`.
-    - [ ] Ensure the `CHANGELOG.md` is complete and up-to-date
+
+    - [ ] Ensure the `CHANGELOG.md` is complete and up-to-date as a human-facing document.
+
+      All user-facing changes should be reflected in the `CHANGELOG.md`. Internal
+      changes or changes to development tooling may be omitted from the `CHANGELOG.md`.
+
+      For breaking changes, the `CHANGELOG.md` must contain instructions on how to adapt to the change.
+
+    - [] Remove the "Unreleased" header from the `CHANGELOG.md`.
+
 - [ ] Push the `release-x.y.z` branch, but do not create a pull request
-- [ ] Comment `@JuliaRegistrator register` on the commit that should be tagged as the release. Include a `Release notes:` section in the comment, after the trigger line. For a breaking release (any pre-1.0 `v0.x.0` bump counts as breaking), the release notes must mention the word "breaking" or "changelog" (automerge requirement). Pointing to the `CHANGELOG.md` (which contains the word "changelog") satisfies this, e.g.:
 
-    ```
-    @JuliaRegistrator register
+- [ ] Comment `@JuliaRegistrator register` on the commit that should be tagged as the release.
 
-    Release notes:
+  Include a `Release notes:` section in the comment, after the trigger line pointing to the `CHANGELOG.md`:
 
-    See the [changelog](https://github.com/JuliaQuantumControl/<Package>.jl/blob/vx.y.z/CHANGELOG.md).
-    ```
+  ```
+  @JuliaRegistrator register
 
-    The release notes become the body of the GitHub release created by TagBot.
+  Release notes:
+
+  See the [changelog](https://github.com/JuliaQuantumControl/<Package>.jl/blob/vx.y.z/CHANGELOG.md).
+  ```
+
+  The release notes become the body of the GitHub release created by TagBot.
+
 - [ ] Wait for the registration to go through, for TagBot to tag the commit, and for the documentation to be built and deployed
+
 - [ ] Manually merge the `release-x.y.z` branch into `master`, with a merge commit that bumps the version number by applying a `+dev` suffix:
+
     - [ ] `git merge --no-ff --no-commit release-x.y.z`
+
     - [ ] Update `Project.toml`
-    - [ ] Revert any temporarily open compat bounds (restore any `>=` removed in step 2)
+
+    - [ ] Revert any temporarily open compat bounds (restore any `>=` removed in step 2). Pre-1.0 dependencies in the JuliaQuantumControl org should have open compat bounds on the `master` branch.
+
+    - [ ] Add a forward-looking "Unreleased" header back to the top of the `CHANGELOG.md` file:
+
+      ```
+      ## [Unreleased]
+
+      …
+
+      [Unreleased]: https://github.com/JuliaQuantumControl/GRAPE.jl/compare/v<x.y.z>..HEAD
+      ```
+
+      where `x.y.z` is the version that was just released
+
     - [ ] `git commit -m "Bump version to x.y.z+dev"`
+
 - [ ] Push the `master` branch and delete the `release-x.y.z` branch (`git branch -D release-x.y.z && git push origin :release-x.y.z`)
 
 [JuliaQuantumControl]: https://github.com/JuliaQuantumControl
