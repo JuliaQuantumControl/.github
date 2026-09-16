@@ -56,7 +56,7 @@ The root `Project.toml` of a package has neither `[sources]` nor a `[workspace]`
 
 ### Running the Tests
 
-Run `make test` to run the full test suite. Without `make`, start Julia with `julia --project=test`, run `] instantiate`, and then `include("test/runtests.jl")`.
+Run `make test` to run the full test suite. Like `Pkg.test` on CI, `make test` puts only the `test` environment on the `LOAD_PATH` (`JULIA_LOAD_PATH="@"`), so a package that the tests use but that is missing from `test/Project.toml` (including standard libraries like `Random`) causes an error. Without `make`, start Julia with `julia --project=test`, run `] instantiate`, and then `include("test/runtests.jl")`.
 
 To run the tests with coverage, use `make coverage` or `make htmlcoverage`.
 
