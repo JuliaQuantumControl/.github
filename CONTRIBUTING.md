@@ -269,12 +269,15 @@ Releases are made by the package maintainer only.
       ```
       ## [Unreleased]
 
+
+      ## [v<x.y.z>] — <YYYY-MM-DD>
+
       …
 
-      [Unreleased]: https://github.com/JuliaQuantumControl/GRAPE.jl/compare/v<x.y.z>..HEAD
+      [Unreleased]: https://github.com/JuliaQuantumControl/<Package>.jl/compare/v<x.y.z>..HEAD
       ```
 
-      where `x.y.z` is the version that was just released
+      where `x.y.z` is the version that was just released. Sections in the `CHANGELOG.md` are separated by two blank lines, so the empty "Unreleased" section has two blank lines before and after its heading
 
     - [ ] `git commit -m "Bump version to x.y.z+dev"`
 
