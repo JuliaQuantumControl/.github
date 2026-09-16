@@ -76,6 +76,8 @@ Run `make docs` to build the documentation in the `docs/build` subfolder. For in
 
 To preview the documentation, run a web server, e.g., with `using LiveServer; serve(dir="docs/build")` from your global environment, or with `python3 -m http.server --directory docs/build`. See the [Documenter Guide](https://documenter.juliadocs.org/stable/man/guide/#Note-6b659cc6046c5199) for details.
 
+The `docs/make.jl` script only builds the documentation. Deployment happens in [continuous integration](#continuous-integration), via `docs/deploy.jl`.
+
 
 ### Source Code Formatting
 
@@ -150,7 +152,8 @@ The `CI` workflow of each package has the following jobs:
 
 * **Test**: Runs the tests with the latest Julia release, via [julia-runtest](https://github.com/julia-actions/julia-runtest), and uploads the coverage to [Codecov](https://codecov.io). It warns about [unreleased sibling packages](#sibling-packages), and about dependencies of the package that the test environment holds back below the newest version that the package's `[compat]` allows (in which case the newest version is not actually tested). For pull requests by Dependabot, julia-runtest requires the latest compatible versions of all dependencies.
 * **Test (oldest Julia, lowest compat bounds)**: Runs the tests with the oldest supported Julia version and the lowest versions of all dependencies that the `[compat]` bounds allow, using [julia-downgrade-compat](https://github.com/julia-actions/julia-downgrade-compat). A failure means that a lower compat bound must be raised.
-* **Documentation**: Builds and deploys the documentation.
+* **Documentation**: Builds the documentation and uploads it as the `docs-build` artifact. The build runs without write permissions and without any secrets.
+* **Deploy documentation**: Deploys the `docs-build` artifact to the `gh-pages` branch by running `docs/deploy.jl`, which installs only Documenter and calls `deploydocs`. For pull requests, this job runs only for branches of the package repository, not for pull requests from forks or from Dependabot, and it deploys a preview only if `docs/deploy.jl` sets `push_preview = true`. To review the documentation of such a pull request, download the `docs-build` artifact from the CI run, and run `python3 -m http.server --directory build` in the unzipped folder.
 * **Codestyle**: Checks spelling ([typos](https://github.com/crate-ci/typos)), the version number, the `[sources]`, the code style, and `CHANGELOG.md`.
 
 Some packages also test their downstream packages (e.g., `QuantumControl` runs the tests of `Krotov` and `GRAPE` against its current version). These jobs are informational: a failure means that the downstream package must be adapted.
@@ -189,6 +192,14 @@ Every package in `test/Project.toml` is resolved together with the dependencies 
 ### `installorg.jl` is optional
 
 Switching all environments to local sibling checkouts by default (as the organization did in the past) conflicts with testing against registered releases, and required a custom setup for every `make` target and CI job. It remains available for testing changes across several packages locally.
+
+### Separate documentation build and deployment
+
+Building the documentation runs a lot of third-party code: every package in the `docs` environment, including package build scripts, and all code examples. If a compromised release of any of these packages ran in a job that can push to the repository, it could modify any branch or tag. Therefore, the **Documentation** job builds with a read-only token, and the **Deploy documentation** job, which has write permissions, never runs the documentation code. It does not restore the cache of the build job, either. Removing the token from the environment of the build step would not be enough, since `actions/checkout` stores the token on disk (hence `persist-credentials: false`).
+
+Dependabot pull requests get no previews because GitHub gives them a token with write permissions when a workflow requests one, and a Dependabot pull request runs new versions of dependencies before anyone has reviewed them. The condition for the deploy job checks the author of the pull request, not `github.actor`, which can be spoofed. Pull requests from forks only ever get a read-only token; the `docs-build` artifact allows reviewing their documentation.
+
+The deployment authenticates with `GITHUB_TOKEN` only. The `DOCUMENTER_KEY` deploy key is used by TagBot, so that a new tag triggers the `CI` workflow; it is not needed for the deployment itself, and it would expose a long-lived credential to the build.
 
 ### Oldest Julia version and lowest compat bounds
 
